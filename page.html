@@ -1,8 +1,28 @@
 <!doctype html>
 <html>
-<head></head>
+<head>
+    <style>
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #comic {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
+</head>
 <body>
-    <p>Welcome to your new homepage!</p>
+    <div class="container">
+        <img id="comic" />
+    </div>
+
+    <!-- Scripts -->
+    <script src="jquery-3.1.1.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
