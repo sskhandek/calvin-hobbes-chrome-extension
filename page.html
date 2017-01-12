@@ -1,10 +1,14 @@
 <!doctype html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
     <style>
-        html {
+        body {
+            font-family: 'Cabin', sans-serif;
             background: url(background.jpg) no-repeat center center fixed;
             background-size: cover;
+            overflow-x: hidden;
+            overflow-y: hidden;
         }
 
         .container {
@@ -12,18 +16,55 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
         #comic {
             max-width: 100%;
+            max-height: 100%;
             height: auto;
+            border: 5px solid black;
         }
+
+        #time {
+            margin-top: 2%;
+            font-size: 7vw;
+            color: #800000;
+            clear: both;
+        }
+
+        #time > * {
+            display: inline-block;
+        }
+
+        #hours, #minutes, #seconds {
+            width: 7.5vw;
+        }
+
+        #date {
+            font-size: 3vw;
+            color: #800000;
+            clear: both;
+        }
+
     </style>
 
 </head>
 <body>
     <div class="container">
-        <a href="http://www.gocomics.com/calvinandhobbes"><img id="comic" /></a>
+        <div>
+            <a href="http://www.gocomics.com/calvinandhobbes">
+                <img id="comic" />
+            </a>
+        </div>
+        <div id="time">
+            <div id="hours"></div>
+            <div>:</div>
+            <div id="minutes"></div>
+            <div>:</div>
+            <div id="seconds"></div>
+        </div>
+        <div id="date"></div>
     </div>
 
     <!-- Scripts -->
