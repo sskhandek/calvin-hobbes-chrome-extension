@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Daily Calvin & Hobbes",
-    "description": "Get a dose of Calvin & Hobbes to start your day",
+    "description": "Get a dose of Calvin & Hobbes to start your day.",
     "version": "1.0",
     "browser_action": {
         "default_icon": "icon.png",
