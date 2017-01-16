@@ -12,7 +12,6 @@ $.ajax({
       if(el.className === 'amu-container-global') {
           const comicSrc = el.getElementsByClassName("item-comic-image")[0].children[0].src
           $('#comic').attr('src', comicSrc);
-          localStorage.setItem("imgData", imgData);
       }
   });
 });
