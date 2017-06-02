@@ -1,5 +1,5 @@
 body {
-    font-family: 'Fira Sans Extra Condensed', sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background: url(../images/background.jpg) no-repeat center center fixed;
     background-size: cover;
     overflow-x: hidden;
@@ -23,6 +23,6 @@ body {
 
 #date {
     font-size: 4vw;
-    color: #083045;
+    color: black;
     clear: both;
 }
