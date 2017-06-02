@@ -22,7 +22,11 @@ $.ajax({
           }
       }
   });
+}).fail((err) => {
+  alert(err);
 });
+
+// TODO: Add offline functionality if the request failed and do not populate the field
 
 // Get the time
 function setDate() {

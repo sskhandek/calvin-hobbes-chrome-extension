@@ -1,0 +1,28 @@
+body {
+    font-family: 'Fira Sans Extra Condensed', sans-serif;
+    background: url(../images/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#comic {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    border: 5px solid black;
+}
+
+#date {
+    font-size: 4vw;
+    color: #083045;
+    clear: both;
+}

@@ -1,49 +1,18 @@
 <!doctype html>
 <html>
 <head>
+    <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Fira Sans Extra Condensed', sans-serif;
-            background: url(background.jpg) no-repeat center center fixed;
-            background-size: cover;
-            overflow-x: hidden;
-            overflow-y: hidden;
-        }
-
-        .container {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        #comic {
-            max-width: 100%;
-            max-height: 100%;
-            height: auto;
-            border: 5px solid black;
-        }
-
-
-        #date {
-            font-size: 4vw;
-            color: #083045;
-            clear: both;
-        }
-
-    </style>
-
+    <link href="styles/main.css" rel="stylesheet"></link>
 </head>
 <body>
     <div class="container">
         <div>
             <a href="http://www.gocomics.com/calvinandhobbes">
-                <img id="comic" />
+                <img class="comic"/>
             </a>
         </div>
-        <div id="date"></div>
+        <div class="date"></div>
     </div>
 
     <!-- Scripts -->
