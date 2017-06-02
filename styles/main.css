@@ -1,7 +1,7 @@
 body {
     font-family: "Tahoma", Tahoma, Arial, sans-serif;
     background: url(../images/background.jpg) no-repeat center center fixed;
-    background-size: auto 100%;
+    background-size: cover;
     overflow-x: hidden;
     overflow-y: hidden;
 }

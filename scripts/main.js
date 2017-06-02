@@ -32,3 +32,11 @@ function setDate() {
     $('#date').html(now.toLocaleDateString());
 }
 setDate();
+
+// // Randomly set background image
+let imageUrl = "background-" + (Math.floor(Math.random() * 3) + 1) + ".png";
+$('body').css('background', 'url(../images/' + imageUrl + ')  no-repeat center center fixed');
+
+
+
+
