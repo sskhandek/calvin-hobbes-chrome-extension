@@ -35,7 +35,7 @@ setDate();
 
 // // Randomly set background image
 
-let arr = ['background-1.png', 'background-2.png', 'background.jpg']
+let arr = ['background-1.png', 'background-2.png', 'background-3.png']
 let imageUrl = arr[(Math.floor(Math.random() * 3))];
 let i = 'url(../images/' + imageUrl + ')  no-repeat center center fixed';
 $('#main').css({
