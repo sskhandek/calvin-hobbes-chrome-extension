@@ -34,8 +34,14 @@ function setDate() {
 setDate();
 
 // // Randomly set background image
-let imageUrl = "background-" + (Math.floor(Math.random() * 3) + 1) + ".png";
-$('body').css('background', 'url(../images/' + imageUrl + ')  no-repeat center center fixed');
+
+let arr = ['background-1.png', 'background-2.png', 'background.jpg']
+let imageUrl = arr[(Math.floor(Math.random() * 3))];
+let i = 'url(../images/' + imageUrl + ')  no-repeat center center fixed';
+$('#main').css({
+  'background': i,
+  'background-size': 'cover'
+});
 
 
 
