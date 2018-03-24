@@ -1,6 +1,5 @@
 # Calvin & Hobbes Chrome Extension
 
-==========
 Created by [@sskhandek](github.com/sskhandek)
 
 A Chrome Extension built to show a daily Calvin &amp; Hobbes Strip on opening a tab.
