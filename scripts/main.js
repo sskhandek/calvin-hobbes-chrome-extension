@@ -9,7 +9,7 @@ if (obj) {
 }
 
 $.ajax({
-    url: 'https://cors-anywhere.herokuapp.com/' + url,
+    url: url,
     method: 'GET',
     crossDomain: true
 }).then(
@@ -20,6 +20,7 @@ $.ajax({
                 const comicSrc = el.getElementsByClassName(
                     'item-comic-image'
                 )[0].children[0].src;
+                console.log(comicSrc)
                 if (!obj || comicSrc !== obj) {
                     localStorage.setItem('calvinandhobbes_url', comicSrc);
                     $('#comic').attr('src', comicSrc);
@@ -40,7 +41,6 @@ function setDate() {
 setDate();
 
 // // Randomly set background image
-
 let arr = ['background-1.png', 'background-2.png', 'background-3.png'];
 let imageUrl = arr[Math.floor(Math.random() * 3)];
 let i = 'url(../images/' + imageUrl + ')  no-repeat center center fixed';
