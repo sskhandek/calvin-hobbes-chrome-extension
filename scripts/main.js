@@ -14,19 +14,28 @@ $.ajax({
     crossDomain: true
 }).then(
     responseData => {
-        html = $.parseHTML(responseData);
-        $.each(html, (i, el) => {
-            if (el.className && el.className.includes('amu-container-global')) {
-                const comicSrc = el.getElementsByClassName(
-                    'item-comic-image'
-                )[0].children[0].src;
-                console.log(comicSrc)
-                if (!obj || comicSrc !== obj) {
-                    localStorage.setItem('calvinandhobbes_url', comicSrc);
-                    $('#comic').attr('src', comicSrc);
+        const html = $.parseHTML(responseData);
+        let comicSrc = null;
+
+        $(html).each((i, el) => {
+            if (el.nodeType === 1) { // Element node
+                const $img = $(el).find('section[class^="ShowComicViewer"] img[data-sentry-component="SiteImage"]');
+                if ($img.length) {
+                    comicSrc = $img.attr('src');
+                    return false; // Break loop early
                 }
             }
         });
+
+        if (comicSrc) {
+            const obj = localStorage.getItem('calvinandhobbes_url');
+            if (!obj || comicSrc !== obj) {
+                localStorage.setItem('calvinandhobbes_url', comicSrc);
+                $('#comic').attr('src', comicSrc);
+            }
+        } else {
+            console.error('Comic image not found.');
+        }
     },
     err => {
         console.log(err);
