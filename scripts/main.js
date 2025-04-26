@@ -61,25 +61,16 @@ async function loadComic() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadComic);
-
-
 // Call it when the page loads
 document.addEventListener('DOMContentLoaded', loadComic);
 
+// Randomly set background image
+const arr = ['background-1.png', 'background-2.png', 'background-3.png'];
+const randomImage = arr[Math.floor(Math.random() * arr.length)];
+const backgroundStyle = `url(../images/${randomImage}) no-repeat center center fixed`;
 
-// Get the time
-function setDate() {
-    const now = new Date();
-    $('#date').html(now.toLocaleDateString());
+const mainElement = document.getElementById('main');
+if (mainElement) {
+    mainElement.style.background = backgroundStyle;
+    mainElement.style.backgroundSize = 'cover';
 }
-setDate();
-
-// // Randomly set background image
-let arr = ['background-1.png', 'background-2.png', 'background-3.png'];
-let imageUrl = arr[Math.floor(Math.random() * 3)];
-let i = 'url(../images/' + imageUrl + ')  no-repeat center center fixed';
-$('#main').css({
-    background: i,
-    'background-size': 'cover'
-});
