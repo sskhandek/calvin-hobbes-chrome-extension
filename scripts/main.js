@@ -71,6 +71,16 @@ const backgroundStyle = `url(../images/${randomImage}) no-repeat center center f
 
 const mainElement = document.getElementById('main');
 if (mainElement) {
+    // Set initial transparency
+    mainElement.style.opacity = '0';
+    mainElement.style.transition = 'opacity 1s ease';
+
+    // Set background
     mainElement.style.background = backgroundStyle;
     mainElement.style.backgroundSize = 'cover';
+
+    // Fade it in
+    requestAnimationFrame(() => {
+        mainElement.style.opacity = '1';
+    });
 }
