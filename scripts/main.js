@@ -1,46 +1,72 @@
-// Fetch Comic
-const currDate = new Date();
-const url = `https://www.gocomics.com/calvinandhobbes/${currDate.getFullYear()}/${currDate.getMonth() +
-    1}/${currDate.getDate()}`;
-console.log(url);
-const obj = localStorage.getItem('calvinandhobbes_url');
-if (obj) {
-    $('#comic').attr('src', obj);
-}
+async function loadComic() {
+    const comicImg = document.getElementById('comic');
 
-$.ajax({
-    url: url,
-    method: 'GET',
-    crossDomain: true
-}).then(
-    responseData => {
-        const html = $.parseHTML(responseData);
-        let comicSrc = null;
+    // --- Step 1: Try to load from localStorage first ---
+    const cachedUrl = localStorage.getItem('calvinandhobbes_url');
+    if (cachedUrl) {
+        comicImg.src = cachedUrl;
+    }
 
-        $(html).each((i, el) => {
-            if (el.nodeType === 1) { // Element node
-                const $img = $(el).find('section[class^="ShowComicViewer"] img[data-sentry-component="SiteImage"]');
-                if ($img.length) {
-                    comicSrc = $img.attr('src');
-                    return false; // Break loop early
+    // --- Step 2: Try to fetch today's comic ---
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const url = `https://www.gocomics.com/calvinandhobbes/${year}/${month}/${day}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, 'text/html');
+
+        const linkWithImage = doc.querySelector('link[imageSrcSet]');
+        
+        if (linkWithImage) {
+            const imageSrcSet = linkWithImage.getAttribute('imageSrcSet');
+            
+            const srcList = imageSrcSet.split(',').map(item => {
+                const [url, widthStr] = item.trim().split(' ');
+                const width = parseInt(widthStr.replace('w', ''), 10);
+                return { url, width };
+            });
+
+            // Pick a medium-high resolution image (around 768w)
+            const targetWidth = 768;
+            let bestImage = srcList[0];
+            let bestDiff = Math.abs(srcList[0].width - targetWidth);
+
+            for (const img of srcList) {
+                const diff = Math.abs(img.width - targetWidth);
+                if (diff < bestDiff) {
+                    bestDiff = diff;
+                    bestImage = img;
                 }
             }
-        });
 
-        if (comicSrc) {
-            const obj = localStorage.getItem('calvinandhobbes_url');
-            if (!obj || comicSrc !== obj) {
-                localStorage.setItem('calvinandhobbes_url', comicSrc);
-                $('#comic').attr('src', comicSrc);
-            }
+            // Update the comic src
+            comicImg.src = bestImage.url;
+
+            // --- Step 3: Save to localStorage for next time ---
+            localStorage.setItem('calvinandhobbes_url', bestImage.url);
         } else {
-            console.error('Comic image not found.');
+            console.error('Comic image not found in link preload.');
         }
-    },
-    err => {
-        console.log(err);
+    } catch (error) {
+        console.error('Failed to load comic:', error);
     }
-);
+}
+
+document.addEventListener('DOMContentLoaded', loadComic);
+
+
+// Call it when the page loads
+document.addEventListener('DOMContentLoaded', loadComic);
+
 
 // Get the time
 function setDate() {
