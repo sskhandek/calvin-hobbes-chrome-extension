@@ -19,42 +19,19 @@ async function loadComic() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
+    
         const htmlText = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlText, 'text/html');
-
-        const linkWithImage = doc.querySelector('link[imageSrcSet]');
-        
-        if (linkWithImage) {
-            const imageSrcSet = linkWithImage.getAttribute('imageSrcSet');
-            
-            const srcList = imageSrcSet.split(',').map(item => {
-                const [url, widthStr] = item.trim().split(' ');
-                const width = parseInt(widthStr.replace('w', ''), 10);
-                return { url, width };
-            });
-
-            // Pick a medium-high resolution image (around 768w)
-            const targetWidth = 768;
-            let bestImage = srcList[0];
-            let bestDiff = Math.abs(srcList[0].width - targetWidth);
-
-            for (const img of srcList) {
-                const diff = Math.abs(img.width - targetWidth);
-                if (diff < bestDiff) {
-                    bestDiff = diff;
-                    bestImage = img;
-                }
-            }
-
-            // Update the comic src
-            comicImg.src = bestImage.url;
-
-            // --- Step 3: Save to localStorage for next time ---
-            localStorage.setItem('calvinandhobbes_url', bestImage.url);
+    
+        const ogImage = doc.querySelector('meta[property="og:image"]');
+        const imageUrl = ogImage?.getAttribute('content');
+    
+        if (imageUrl) {
+            comicImg.src = imageUrl;
+            localStorage.setItem('calvinandhobbes_url', imageUrl);
         } else {
-            console.error('Comic image not found in link preload.');
+            console.error('Comic image not found in og:image meta tag.');
         }
     } catch (error) {
         console.error('Failed to load comic:', error);
@@ -84,3 +61,14 @@ if (mainElement) {
         mainElement.style.opacity = '1';
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const dateEl = document.getElementById('date');
+    if (!dateEl) return;
+
+    const today = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formatted = today.toLocaleDateString(undefined, options); // uses browser locale
+
+    dateEl.textContent = formatted;
+});
